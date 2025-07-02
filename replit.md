@@ -112,8 +112,14 @@ BowlNow is a comprehensive business management platform designed specifically fo
 
 ## Changelog
 
-Changelog:
-- June 25, 2025. Initial setup
+Recent Changes:
+- January 2, 2025: Successfully migrated project from Replit Agent to standard Replit environment
+  - ✓ Configured PostgreSQL database with proper schema
+  - ✓ Set up Stripe payment integration with secret keys
+  - ✓ Added comprehensive sample data including 8 realistic bowling center clients
+  - ✓ Verified all features working: dashboard metrics, client management, revenue tracking
+  - ✓ Application running smoothly on port 5000 with full functionality
+- June 25, 2025: Initial setup
 
 ## User Preferences
 
