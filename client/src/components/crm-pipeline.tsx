@@ -55,19 +55,39 @@ export default function CRMPipeline() {
       const response = await apiRequest("PUT", `/api/clients/${clientId}`, { status });
       return response.json();
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/clients"] });
-      toast({
-        title: "Success",
-        description: "Client status updated successfully",
+    onMutate: async ({ clientId, status }) => {
+      // Cancel any outgoing refetches
+      await queryClient.cancelQueries({ queryKey: ["/api/clients"] });
+
+      // Snapshot the previous value
+      const previousClients = queryClient.getQueryData<Client[]>(["/api/clients"]);
+
+      // Optimistically update to the new value
+      queryClient.setQueryData<Client[]>(["/api/clients"], (old) => {
+        if (!old) return old;
+        return old.map(client => 
+          client.id === clientId 
+            ? { ...client, status } 
+            : client
+        );
       });
+
+      // Return a context object with the snapshotted value
+      return { previousClients };
     },
-    onError: (error: any) => {
+    onError: (error: any, variables, context) => {
+      // If the mutation fails, use the context returned from onMutate to roll back
+      if (context?.previousClients) {
+        queryClient.setQueryData<Client[]>(["/api/clients"], context.previousClients);
+      }
       toast({
         title: "Error",
         description: error.message || "Failed to update client status",
         variant: "destructive",
       });
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/clients"] });
     },
   });
 
