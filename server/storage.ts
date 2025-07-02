@@ -148,11 +148,16 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getBoostClients(): Promise<(BoostClient & { client: Client })[]> {
-    return await db
+    const results = await db
       .select()
       .from(boostClients)
       .innerJoin(clients, eq(boostClients.clientId, clients.id))
       .orderBy(desc(boostClients.createdAt));
+    
+    return results.map(result => ({
+      ...result.boost_clients,
+      client: result.clients
+    }));
   }
 
   async getBoostClient(clientId: number): Promise<BoostClient | undefined> {
@@ -181,11 +186,16 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getRevenue(): Promise<(Revenue & { client: Client })[]> {
-    return await db
+    const results = await db
       .select()
       .from(revenue)
       .innerJoin(clients, eq(revenue.clientId, clients.id))
       .orderBy(desc(revenue.createdAt));
+    
+    return results.map(result => ({
+      ...result.revenue,
+      client: result.clients
+    }));
   }
 
   async getRevenueByClient(clientId: number): Promise<Revenue[]> {
@@ -226,11 +236,16 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getInvoices(): Promise<(Invoice & { client: Client })[]> {
-    return await db
+    const results = await db
       .select()
       .from(invoices)
       .innerJoin(clients, eq(invoices.clientId, clients.id))
       .orderBy(desc(invoices.createdAt));
+    
+    return results.map(result => ({
+      ...result.invoices,
+      client: result.clients
+    }));
   }
 
   async getInvoice(id: number): Promise<Invoice | undefined> {
@@ -256,20 +271,30 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getInvoicesByStatus(status: string): Promise<(Invoice & { client: Client })[]> {
-    return await db
+    const results = await db
       .select()
       .from(invoices)
       .innerJoin(clients, eq(invoices.clientId, clients.id))
       .where(eq(invoices.status, status))
       .orderBy(desc(invoices.createdAt));
+    
+    return results.map(result => ({
+      ...result.invoices,
+      client: result.clients
+    }));
   }
 
   async getOnboardingForms(): Promise<(OnboardingForm & { client?: Client })[]> {
-    return await db
+    const results = await db
       .select()
       .from(onboardingForms)
       .leftJoin(clients, eq(onboardingForms.clientId, clients.id))
       .orderBy(desc(onboardingForms.createdAt));
+    
+    return results.map(result => ({
+      ...result.onboarding_forms,
+      client: result.clients || undefined
+    }));
   }
 
   async getOnboardingForm(id: number): Promise<OnboardingForm | undefined> {

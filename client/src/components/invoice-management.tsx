@@ -249,7 +249,7 @@ export default function InvoiceManagement() {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel>Type</FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <Select onValueChange={field.onChange} defaultValue={field.value || undefined}>
                             <FormControl>
                               <SelectTrigger>
                                 <SelectValue placeholder="Select type" />
@@ -431,9 +431,8 @@ export default function InvoiceManagement() {
                       </div>
                     </td>
                   </tr>
-                  );
-                })
-                ))}
+                  )
+                })}
                 {filteredInvoices.length === 0 && (
                   <tr>
                     <td colSpan={7} className="p-8 text-center text-slate-500">

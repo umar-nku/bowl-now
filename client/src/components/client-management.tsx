@@ -183,7 +183,9 @@ export default function ClientManagement() {
     }
   };
 
-  const calculateProgress = (boostClient: BoostClient) => {
+  const calculateProgress = (boostClient: BoostClient | undefined) => {
+    if (!boostClient) return 0;
+    
     const milestones = [
       boostClient.kickoffCallCompleted,
       boostClient.landingPagesLive,
