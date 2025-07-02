@@ -1,0 +1,196 @@
+Build a backend web app for BowlNow that includes the following modules:
+
+🔧 TECH STACK (Preferred if needed):
+Backend: Node.js or Python (FastAPI)
+
+Database: PostgreSQL (or Supabase for hosted)
+
+Frontend (if required): React or just a lightweight HTML dashboard
+
+Integrations: Stripe for invoicing
+
+MODULE 1: Sales Pipeline CRM
+Goal: Track all clients and prospects. Tag paying, non-paying, and prospects.
+
+Fields:
+
+Client Name
+
+Contact Info (name, email, phone)
+
+Status (Prospect, Active, Past Due, Canceled)
+
+Tags (e.g. Not Paying, Prospect, High Priority)
+
+Notes / History Log
+
+Views:
+
+Kanban or List View by Status
+
+Filter by "Not Paying"
+
+Add/Edit client with fields above
+
+MODULE 2: Client Tracker (Boost Clients)
+Goal: Track project deliverables for Boost Clients.
+
+Fields per Client:
+
+Kickoff Call Completed (Yes/No)
+
+Landing Pages Live (Yes/No + Date)
+
+Meta Ads Live (Yes/No + Date)
+
+Google Ads Live (Yes/No + Date)
+
+Website Live (Yes/No + Date)
+
+Views:
+
+Table of Clients with status columns
+
+Highlight any incomplete deliverables
+
+MODULE 3: Revenue Tracker
+Goal: Report revenue by package and client count.
+
+Fields:
+
+Client Name
+
+Package Type (CRM, CRM + Ads, Website Only, etc.)
+
+Start Date
+
+Monthly Recurring Revenue (MRR)
+
+One-Time Charges
+
+Total Paid
+
+Views:
+
+Monthly Summary: Total MRR, total one-off revenue
+
+Revenue by Package Type
+
+Client Count by Package Type
+
+MODULE 4: Invoice Issuer (with Stripe)
+Goal: Issue one-off and recurring invoices.
+
+Integrate with Stripe API
+
+Features:
+
+Send One-Time Invoice
+
+Create Recurring Subscription
+
+View Payment Status
+
+Email Notification of Payment
+
+Required Data:
+
+Client Info
+
+Amount
+
+Service Description
+
+Frequency (one-time or monthly)
+
+Stripe Customer & Subscription IDs
+
+MODULE 5: Client Onboarding Tool
+Goal: Intake new clients and store form data tied to client profile.
+
+Form Fields:
+
+👤 Business Info
+
+Business Name
+
+Main Contact Name
+
+Phone Number
+
+Email Address
+
+Client Type (Dropdown: CRM, CRM + Ads, Website Only, etc.)
+
+Onboarding Progress (%)
+
+Preferred Communication Method (Email / Phone / SMS / Other)
+
+🔗 Web Slug
+
+Custom landing page link (e.g. bowlnow.com/yourcenter)
+
+🎯 Goals & Budget
+
+Goals (textarea)
+
+Monthly Ad Budget (number)
+
+🎉 Specials & Highlights
+
+Promos/events/specials (textarea)
+
+📁 Assets
+
+Logo and 5 photo file names (textarea)
+
+🌐 Website / Landing Page
+
+Landing Page Choice (Dropdown: I’ll Choose a Template / Let Us Pick)
+
+Changes to headline, buttons, colors (textarea)
+
+📣 Ad Channels
+
+Checkboxes: Google Ads, Facebook Ads, Instagram Ads, Local SEO
+
+🌐 Website Build
+
+Do you need a full website? (Yes/No)
+
+🧑‍🤝‍🧑 Additional Contacts
+
+Name, Email, Phone of additional contacts (repeatable field)
+
+Functionality:
+
+Auto-saves all data to client profile
+
+Tracks form completion progress
+
+Pushes onboarding to CRM and client tracker automatically
+
+Admin Features (Optional but Recommended):
+Admin Dashboard with tabs for: CRM, Client Tracker, Revenue, Invoices, Onboarding
+
+Export CSV for revenue and CRM
+
+Notifications for overdue payments or incomplete onboardings
+
+Storage Recommendations:
+
+PostgreSQL tables:
+
+clients
+
+pipeline
+
+boost_status
+
+revenue
+
+invoices
+
+onboarding_forms
+
+contacts
