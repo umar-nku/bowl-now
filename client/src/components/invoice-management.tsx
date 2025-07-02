@@ -385,33 +385,36 @@ export default function InvoiceManagement() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-200">
-                {filteredInvoices.map((invoice) => (
-                  <tr key={invoice.id} className="hover:bg-slate-50 transition-colors">
+                {filteredInvoices.map((invoice: any) => {
+                  const invoiceData = invoice.invoices || invoice;
+                  const clientData = invoice.clients || invoice.client;
+                  return (
+                  <tr key={invoiceData.id} className="hover:bg-slate-50 transition-colors">
                     <td className="p-4">
-                      <div className="font-medium text-blue-600">{invoice.invoiceNumber}</div>
+                      <div className="font-medium text-blue-600">{invoiceData.invoiceNumber}</div>
                       <div className="text-sm text-slate-600">
-                        {invoice.createdAt ? new Date(invoice.createdAt).toLocaleDateString() : 'No date'}
+                        {invoiceData.createdAt ? new Date(invoiceData.createdAt).toLocaleDateString() : 'No date'}
                       </div>
                     </td>
                     <td className="p-4">
-                      <div className="font-medium text-slate-800">{invoice.client.businessName}</div>
-                      <div className="text-sm text-slate-600">{invoice.client.email}</div>
+                      <div className="font-medium text-slate-800">{clientData?.businessName}</div>
+                      <div className="text-sm text-slate-600">{clientData?.email}</div>
                     </td>
                     <td className="p-4">
-                      <div className="text-slate-800">{invoice.description}</div>
-                      <div className="text-sm text-slate-600 capitalize">{invoice.frequency}</div>
+                      <div className="text-slate-800">{invoiceData.description}</div>
+                      <div className="text-sm text-slate-600 capitalize">{invoiceData.frequency}</div>
                     </td>
                     <td className="p-4 text-center">
-                      <div className="font-semibold text-slate-800">${invoice.amount}</div>
+                      <div className="font-semibold text-slate-800">${invoiceData.amount}</div>
                     </td>
                     <td className="p-4 text-center">
-                      <Badge className={getStatusColor(invoice.status)}>
-                        {invoice.status}
+                      <Badge className={getStatusColor(invoiceData.status)}>
+                        {invoiceData.status}
                       </Badge>
                     </td>
                     <td className="p-4 text-center">
                       <div className="text-slate-800">
-                        {invoice.dueDate ? new Date(invoice.dueDate).toLocaleDateString() : 'No date'}
+                        {invoiceData.dueDate ? new Date(invoiceData.dueDate).toLocaleDateString() : 'No date'}
                       </div>
                     </td>
                     <td className="p-4 text-center">
@@ -428,6 +431,8 @@ export default function InvoiceManagement() {
                       </div>
                     </td>
                   </tr>
+                  );
+                })
                 ))}
                 {filteredInvoices.length === 0 && (
                   <tr>
